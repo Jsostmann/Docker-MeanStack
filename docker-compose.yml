@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+    
+  app:
+    container_name: app
+    build: ./app
+    ports:
+      - "8080:3000"
+    links:
+      - database
+    depends_on:
+      - database
+    restart: always
+    command: npm start
+
+
+  database:
+    container_name: database
+    image: mysql:8.0.2
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: demodb
+    ports:
+      - "3305:3306"
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    environment:
+      PMA_HOST: database
+      PMA_USER: root
+      PMA_PASSWORD: root
+    ports:
+      - "3005:80"
+    depends_on:
+      - database
+    restart: always
+    container_name: phpmyadmin
