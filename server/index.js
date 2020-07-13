@@ -19,6 +19,7 @@ const conn = mysql.createConnection({
 conn.connect(function(err) {
   if (err){
     console.log('Cannot connect with database');
+    console.log(err);
   }else{
     console.log("YES");
     app.get('/', function(req, res){

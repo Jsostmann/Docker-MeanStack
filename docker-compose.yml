@@ -2,9 +2,9 @@ version: '3'
 
 services:
     
-  app:
-    container_name: app
-    build: ./app
+  server:
+    container_name: server
+    build: ./server
     ports:
       - "8080:3000"
     links:
@@ -17,12 +17,12 @@ services:
 
   database:
     container_name: database
-    image: mysql:8.0.2
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: demodb
+    build: ./sql
     ports:
-      - "3305:3306"
+      - "3306:3306"
+    security_opt:
+      - seccomp:unconfined
+    restart: always
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
