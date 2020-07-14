@@ -7,6 +7,7 @@ const bcrypt = require('bcryptjs');
 const app = express();
 const https = require('https');
 const fs = require('fs');
+const mysqlhelper = require('./server_modules/mysql/mysql');
 
 const privateKey = fs.readFileSync('cert/server.key').toString();
 const certificate = fs.readFileSync('cert/server.crt').toString();
@@ -31,6 +32,7 @@ conn.connect(function(err) {
   }else{
 
     console.log("Connected to database");
+    mysqlhelper.sayHello();
 
     app.get('/', function(req, res){
       res.sendFile(path.join(__dirname + '/public/html/index.html'));
@@ -40,6 +42,7 @@ conn.connect(function(err) {
     app.post('/login', function(req, res) {
       var name = req.body.userName;
       conn.query(`SELECT * FROM USER WHERE firstName = ?`, [name], function(err, result){
+        res.json(result[0].age);
       });
     });
 
