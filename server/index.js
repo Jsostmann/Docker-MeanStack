@@ -2,8 +2,11 @@ var express = require('express');
 var mysql = require('mysql');
 var bodyParser = require('body-parser');
 var http = require('http');
-
+var path = require('path');
+const bcrypt = require('bcryptjs');
 var app = express();
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -21,19 +24,43 @@ conn.connect(function(err) {
     console.log('Cannot connect with database');
     console.log(err);
   }else{
-    console.log("YES");
+
+    console.log("Connected to database");
+
     app.get('/', function(req, res){
-      res.send("blah");
+      res.sendFile(path.join(__dirname + '/public/html/index.html'));
+
     });
 
+    app.post('/login', function(req, res) {
+      var name = req.body.userName;
+      conn.query(`SELECT * FROM USER WHERE firstName = ?`, [name], function(err, result){
+        
+      });
+    });
+
+
+    app.get('/hash', function(req, res){
+      bcrypt.hash(req.query.hash, 10, function(err, hash) {
+        res.send(hash);
+      });
+    });
+
+
     app.get('/db', function(req, res){
+
     conn.query("SELECT * FROM USER", function(err, result){
+      
       res.send(result);
     });
+
   });
+
+
     app.listen(3000, function(){
       console.log('Server started on port 3000 | 8080 if running on docker...');
     });
 
   }
+
 });
