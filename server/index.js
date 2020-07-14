@@ -1,12 +1,12 @@
-var express = require('express');
-var mysql = require('mysql');
-var bodyParser = require('body-parser');
-var http = require('http');
-var path = require('path');
+const express = require('express');
+const mysql = require('mysql');
+const bodyParser = require('body-parser');
+//const http = require('http');
+const path = require('path');
 const bcrypt = require('bcryptjs');
-var app = express();
-var https = require('https');
-var fs = require('fs');
+const app = express();
+const https = require('https');
+const fs = require('fs');
 
 const privateKey = fs.readFileSync('cert/server.key').toString();
 const certificate = fs.readFileSync('cert/server.crt').toString();
@@ -14,8 +14,6 @@ const credentials = {key: privateKey, cert: certificate};
 
 
 app.use(express.static(path.join(__dirname, 'public')));
-
-
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
@@ -42,7 +40,6 @@ conn.connect(function(err) {
     app.post('/login', function(req, res) {
       var name = req.body.userName;
       conn.query(`SELECT * FROM USER WHERE firstName = ?`, [name], function(err, result){
-        
       });
     });
 
@@ -55,15 +52,12 @@ conn.connect(function(err) {
 
 
     app.get('/db', function(req, res){
-
-    conn.query("SELECT * FROM USER", function(err, result){
-      
-      res.send(result);
+      conn.query("SELECT * FROM USER", function(err, result){
+        res.send(result);
     });
-
   });
 
-    var httpsServer = https.createServer(credentials, app);
+  const httpsServer = https.createServer(credentials, app);
 
     httpsServer.listen(3000, function() {
       console.log('Server started on port 3000 | 8080 if running on docker...');
