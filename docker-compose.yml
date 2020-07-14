@@ -12,7 +12,7 @@ services:
     depends_on:
       - database
     restart: always
-    command: npm start
+    command: npm dev
 
 
   database:

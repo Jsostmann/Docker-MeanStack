@@ -5,6 +5,13 @@ var http = require('http');
 var path = require('path');
 const bcrypt = require('bcryptjs');
 var app = express();
+var https = require('https');
+var fs = require('fs');
+
+const privateKey = fs.readFileSync('cert/server.key').toString();
+const certificate = fs.readFileSync('cert/server.crt').toString();
+const credentials = {key: privateKey, cert: certificate};
+
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -56,8 +63,9 @@ conn.connect(function(err) {
 
   });
 
+    var httpsServer = https.createServer(credentials, app);
 
-    app.listen(3000, function(){
+    httpsServer.listen(3000, function() {
       console.log('Server started on port 3000 | 8080 if running on docker...');
     });
 
