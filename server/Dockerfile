@@ -14,6 +14,6 @@ RUN npm ci \
 
 COPY . .
 
-EXPOSE 3000
+EXPOSE 8080
 
 CMD ["nodemon", "index.js"]

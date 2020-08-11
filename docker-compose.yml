@@ -4,9 +4,10 @@ services:
     
   server:
     container_name: server
+    image: nodejs-server
     build: ./server
     ports:
-      - "8080:3000"
+      - "8080:8080"
     links:
       - database
     depends_on:
@@ -16,7 +17,11 @@ services:
 
   database:
     container_name: database
+    image: mysql-database
     build: ./sql
+    environment: 
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     ports:
       - "3306:3306"
     security_opt:
@@ -24,23 +29,24 @@ services:
     restart: always
 
   phpmyadmin:
-    image: phpmyadmin/phpmyadmin:latest
+    image: php-myadmin
+    build: ./phpmyadmin
+    container_name: phpmyadmin
     environment:
       PMA_HOST: ${PMA_HOST}
       PMA_USER: ${PMA_USER}
       PMA_PASSWORD: ${PMA_PASSWORD} 
     ports:
-      - "3005:80"
+      - "3005:8080"
     depends_on:
       - database
     restart: always
-    container_name: phpmyadmin
 
   swagger:
     build: ./server/swagger
     environment:
       URL: /api/swagger.yaml
     ports:
-      - "80:8080"
+      - "8081:8080"
     restart: always
     container_name: swagger

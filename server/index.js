@@ -184,6 +184,6 @@ app.post("/signup",function(req,res) {
 
     const httpsServer = https.createServer(credentials, app);
 
-    httpsServer.listen(3000, function() {
+    httpsServer.listen(8080, function() {
       console.log('Server started on port 3000 | 8080 if running on docker...');
     });
