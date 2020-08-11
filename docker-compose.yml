@@ -4,20 +4,26 @@ services:
     
   server:
     container_name: server
+    image: nodejs-server
+    environment: 
+      JWT_SECRET: ${JWT_SECRET}
     build: ./server
     ports:
-      - "8080:3000"
+      - "8080:8080"
     links:
       - database
     depends_on:
       - database
     restart: always
-    command: npm dev
-
+    command: nodemon index.js
 
   database:
     container_name: database
+    image: mysql-database
     build: ./sql
+    environment: 
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     ports:
       - "3306:3306"
     security_opt:
@@ -25,14 +31,24 @@ services:
     restart: always
 
   phpmyadmin:
-    image: phpmyadmin/phpmyadmin:latest
+    image: php-myadmin
+    build: ./phpmyadmin
+    container_name: phpmyadmin
     environment:
-      PMA_HOST: database
-      PMA_USER: root
-      PMA_PASSWORD: root
+      PMA_HOST: ${PMA_HOST}
+      PMA_USER: ${PMA_USER}
+      PMA_PASSWORD: ${PMA_PASSWORD} 
     ports:
-      - "3005:80"
+      - "3005:8080"
     depends_on:
       - database
     restart: always
-    container_name: phpmyadmin
+
+  swagger:
+    build: ./server/swagger
+    environment:
+      URL: /api/swagger.yaml
+    ports:
+      - "8081:8080"
+    restart: always
+    container_name: swagger
