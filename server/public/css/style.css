@@ -65,7 +65,7 @@ body {
     outline: none !important;
 }    
 .login-form a {
-    color: #fff;
+    color: #5f5e5e;
     text-decoration: underline;
 }
 .login-form a:hover {
