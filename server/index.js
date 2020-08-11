@@ -2,6 +2,7 @@ const express = require('express');
 const mysql = require('mysql');
 const bodyParser = require('body-parser');
 //const http = require('http');
+const jwt = require('jsonwebtoken');
 const path = require('path');
 const cors = require('cors');
 const bcrypt = require('bcryptjs');
@@ -119,7 +120,16 @@ conn.connect(function(err) {
 }
 app.get('/', function(req, res){
   res.sendFile(path.join(__dirname + '/public/html/index.html'));
+});
 
+app.get('/jwt', function(req, res){
+  var token = jwt.sign({
+    data: req.query.data
+  },process.env.JWT_SECRET, { expiresIn: '30min' },{ algorithm: 'HS256'});
+  var decoded1 = jwt.verify(token,process.env.JWT_SECRET);
+
+  res.json({"token": token,
+            "decoded1": decoded1});
 });
 
 app.get('/signup', function(req, res){
