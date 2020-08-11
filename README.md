@@ -6,6 +6,12 @@ A Basic Containerized Solution to implement the MEAN stack.
 ### Have knowledge of terminal
 
 # Setup Steps
+### create ```.env``` file inside root directory and specify the following environment variables 
+```
+PMA_HOST=<your_database_name>
+PMA_USER=<your_username>
+PMA_PASSWORD=<your_password>
+```
 ### cd to ```Desktop``` and run ```git clone https://github.com/Jsostmann/Docker-MeanStack.git fullstack```
 ### cd into ```fullstack``` and run ```docker-compose build``` then run ```docker-compose up``` 
 ### go into server directory and run ```npm i ``` to install all necessary dependencies
