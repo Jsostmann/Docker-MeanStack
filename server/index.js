@@ -154,7 +154,7 @@ app.post('/login', function(req, res) {
         var enteredPass = req.body.password;
         if(mysqlhelper.comparePasswords(enteredPass,result[0].userPass)) {
           //res.json("welcome " + result[0].firstName);
-          res.render('home', {name:result[0].userName}); 
+          res.render('home', {name: result[0].firstName}); 
         } else {
           res.json("invalid password");
         }
