@@ -30,3 +30,4 @@ JWT_SECRET=<your_secret_key>
 ### Express 
 ### Bcrypt
 ### JWT 
+### PHP MyAdmin
