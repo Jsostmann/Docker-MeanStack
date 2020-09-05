@@ -26,7 +26,7 @@ JWT_SECRET=<your_secret_key>
 
 
 ## Frameworks
-### nodeJS Mysql
+### [nodeJS Mysql](https://www.npmjs.com/package/mysql)
 ### Express 
 ### Bcrypt
 ### JWT 
