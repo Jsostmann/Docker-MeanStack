@@ -27,7 +27,7 @@ JWT_SECRET=<your_secret_key>
 
 ## Frameworks
 ### [nodeJS Mysql](https://www.npmjs.com/package/mysql)
-### Express 
-### Bcrypt
-### JWT 
-### PHP MyAdmin
+### [Express](https://expressjs.com/) 
+### [Bcrypt](https://www.npmjs.com/package/bcryptjs)
+### [JWT](https://www.npmjs.com/package/jsonwebtoken)
+### [PHP MyAdmin](https://hub.docker.com/r/phpmyadmin/phpmyadmin/)
