@@ -31,3 +31,4 @@ JWT_SECRET=<your_secret_key>
 ### [Bcrypt](https://www.npmjs.com/package/bcryptjs)
 ### [JWT](https://www.npmjs.com/package/jsonwebtoken)
 ### [PHP MyAdmin](https://hub.docker.com/r/phpmyadmin/phpmyadmin/)
+### [Swagger](https://swagger.io/)
